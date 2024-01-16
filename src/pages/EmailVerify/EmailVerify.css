@@ -1,0 +1,11 @@
+.verify_text {
+  font-family: "Nunito Sans", sans-serif;
+  margin-top: 7vh;
+  max-width: 70%;
+  text-align: center;
+}
+
+.email {
+  font-weight: 700;
+  font-family: "Nunito Sans", sans-serif;
+}

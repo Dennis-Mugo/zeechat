@@ -18,6 +18,24 @@
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
+@media screen and (max-width: 1000px) {
+  .auth_card {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .auth_card {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .auth_card {
+    width: 100%;
+  }
+}
+
 .auth_header {
   font-family: "Nunito Sans", sans-serif;
   text-align: center;

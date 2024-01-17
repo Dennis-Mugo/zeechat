@@ -1,0 +1,14 @@
+.starter_container {
+  background-color: var(--backPurple);
+  height: 100vh;
+}
+
+.starter_wrapper {
+  width: 30%;
+  min-width: 250px;
+  diplay: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  /* border: 1px solid black; */
+}

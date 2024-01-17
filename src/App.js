@@ -7,6 +7,7 @@ import Signup from "./pages/Signup/Signup";
 import StarterPage from "./pages/StarterPage/StarterPage";
 import Chat from "./pages/Chat/Chat";
 import EmailVerify from "./pages/EmailVerify/EmailVerify";
+import AuthWrapper from "./components/AuthWrapper/AuthWrapper";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/email-verify" element={<EmailVerify />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat" element={<AuthWrapper Page={Chat} />} />
       </Routes>
     </Router>
   );

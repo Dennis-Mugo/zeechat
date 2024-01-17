@@ -16,6 +16,7 @@ const CustomColors = {
   grey100: "#F5F5F5",
   grey50: "#FAFAFA",
   pureWhite: "#FFFFFF",
+  transparent: "rgba(0,0,0,0)",
 };
 
 export default CustomColors;

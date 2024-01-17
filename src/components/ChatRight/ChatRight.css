@@ -1,0 +1,11 @@
+.chat_right_container {
+  border: 1px solid black;
+  margin: 0;
+  /* background-color: var(--transparentPurple); */
+}
+
+.chat_header {
+  display: flex;
+  height: 60px;
+  border: 1px solid black;
+}

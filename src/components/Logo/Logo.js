@@ -3,11 +3,12 @@ import CustomColors from "../../config/colors";
 import { useNavigate } from "react-router-dom";
 import { ChatteContext } from "../../config/context";
 
-function Logo({ style }) {
+function Logo({ style, link }) {
   const navigate = useNavigate();
   const { currentUser } = useContext(ChatteContext);
 
   const handleNavigate = () => {
+    if (!link) return;
     if (!currentUser) {
       navigate("/home");
     } else {
@@ -16,6 +17,7 @@ function Logo({ style }) {
   };
   return (
     <h2
+      onClick={handleNavigate}
       style={{
         color: CustomColors.deepPurple,
         fontFamily: "Mooli",

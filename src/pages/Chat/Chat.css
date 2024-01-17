@@ -1,0 +1,15 @@
+.chat_container {
+  height: 100vh;
+  background-color: var(--backPurple);
+}
+
+.chat_shadow {
+  background-color: var(--pureWhite);
+  height: 90vh;
+  overflow-y: scroll;
+  width: 95%;
+  display: flex;
+  border-radius: 20px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}

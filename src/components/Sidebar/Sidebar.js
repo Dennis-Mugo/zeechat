@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Sidebar.css";
 
 import logo from "../../assets/logo_transparent.png";
@@ -6,12 +6,18 @@ import { Button } from "@mui/material";
 import { buttonStyle } from "../../config/styles";
 import CustomColors from "../../config/colors";
 import AddIcon from "@mui/icons-material/Add";
+import BotList from "./BotList";
+import { ChatteContext } from "../../config/context";
 
 function Sidebar({ style }) {
+  const { createDefaultBots, currentUser } = useContext(ChatteContext);
   return (
     <div className="sidebar_container" style={{ ...style }}>
       <div className="side_new flex_center">
         <Button
+          onClick={async () => {
+            // await createDefaultBots(currentUser);
+          }}
           startIcon={<AddIcon sx={{ color: CustomColors.purple }} />}
           variant="contained"
           style={{
@@ -27,6 +33,7 @@ function Sidebar({ style }) {
           Create new bot
         </Button>
       </div>
+      <BotList />
     </div>
   );
 }

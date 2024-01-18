@@ -7,9 +7,11 @@ import ChatDrawer from "./ChatDrawer";
 
 function ChatHeader(props) {
   const { screenWidth, currentUser } = useContext(ChatteContext);
+  console.log(currentUser);
   return (
     <div className="chat_header">
-      {screenWidth <= 750 ? <ChatDrawer /> : <></>}
+      {screenWidth <= 850 ? <ChatDrawer /> : <></>}
+      {currentUser?.email}
     </div>
   );
 }

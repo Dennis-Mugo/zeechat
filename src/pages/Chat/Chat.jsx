@@ -19,8 +19,8 @@ function Chat(props) {
     return (
         <div className='chat_container flex_center'>
             <div className='chat_shadow'>
-                {screenWidth > 750 ? <Sidebar style={{flex: "40"}} /> : <></>}
-                <ChatRight style={{flex: "60"}} />
+                {screenWidth > 850 ? <Sidebar style={{flex: "30"}} /> : <></>}
+                <ChatRight style={{flex: "70"}} />
             </div>
         </div>
     );

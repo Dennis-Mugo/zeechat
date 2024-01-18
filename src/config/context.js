@@ -10,6 +10,7 @@ import {
 import { createContext, useEffect, useState } from "react";
 import uuid4 from "uuid4";
 import { db } from "./firebase";
+import { defaultBots } from "./constants";
 
 export const ChatteContext = createContext();
 
@@ -17,6 +18,7 @@ export const ChatteProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [tempUser, setTempUser] = useState(null);
   const [screenWidth, setScreenWidth] = useState(null);
+  const [selectedBot, setSelectedBot] = useState(null);
 
   let hasWindow = typeof window !== "undefined";
   useEffect(() => {
@@ -52,6 +54,7 @@ export const ChatteProvider = ({ children }) => {
     await setDoc(userRef, userObj);
     setCurrentUser(userObj);
     localStorage.setItem("uid", userId);
+    await createDefaultBots({ userId, ...userObj });
     setTempUser(null);
   };
 
@@ -66,10 +69,39 @@ export const ChatteProvider = ({ children }) => {
     let userRef = doc(db, `zee_users/${userId}`);
     let user = await getDoc(userRef);
     if (user.exists()) {
-      return user;
+      return { userId: user.id, ...user.data() };
     } else {
       return false;
     }
+  };
+
+  const createDefaultBots = async (userObj) => {
+    let promises = [];
+    for (let bot of defaultBots) {
+      promises.push(
+        new Promise(function (resolve, reject) {
+          let res = createBot(bot, userObj);
+          resolve(res);
+          reject("error");
+        })
+      );
+    }
+    Promise.all(promises).then(
+      (values) => {
+        console.log(values);
+      },
+      (e) => {
+        console.log(e);
+      }
+    );
+  };
+
+  const createBot = async (botObj, user) => {
+    if (!user) return;
+    let botId = uuid4();
+    let botRef = doc(db, `zee_users/${user.userId}/bots/${botId}`);
+    await setDoc(botRef, botObj);
+    return "success";
   };
 
   return (
@@ -84,6 +116,10 @@ export const ChatteProvider = ({ children }) => {
         signinUser,
         fetchUser,
         screenWidth,
+        createBot,
+        createDefaultBots,
+        selectedBot,
+        setSelectedBot,
       }}
     >
       {children}

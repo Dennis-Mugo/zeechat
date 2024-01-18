@@ -1,0 +1,22 @@
+.side_search_container {
+  /* border: 1px solid black; */
+}
+
+.side_search_wrapper {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  border-radius: 10px;
+  width: 90%;
+  background-color: var(--grey200);
+  padding: 0 10px;
+}
+
+.side_search_wrapper input {
+  height: 30px;
+  flex: 1;
+  font-family: "Mooli", sans-serif;
+  border: none;
+  outline: none;
+  background-color: var(--grey200);
+}

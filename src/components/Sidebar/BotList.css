@@ -20,3 +20,54 @@
   outline: none;
   background-color: var(--grey200);
 }
+
+.bot_results {
+  /* border: 1px solid black; */
+  height: calc(90vh - 30px - 15vh - 5px);
+  border-radius: 0 0 0 20px;
+  overflow-y: scroll;
+  padding-top: 25px;
+}
+
+.bot_results::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.bot_results {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.bot_item {
+  display: flex;
+  /* border: 1px solid black; */
+  height: 60px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.bot_item_left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 20;
+  /* border: 1px solid black; */
+}
+
+.bot_item_right {
+  flex: 80;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bot_item_name {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.bot_item_desc {
+  font-family: "Nunito", sans-serif;
+  font-size: 15px;
+}

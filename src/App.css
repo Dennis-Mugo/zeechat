@@ -13,10 +13,12 @@ p {
 }
 
 :root {
+  --pureWhite: #ffffff;
   --dark: #0d1c2e;
   --purple: #9d28ac;
   --deepPurple: #673ab3;
   --backPurple: #f4ecff;
+  --backPurple2: #f1e7ff;
   --transparentPurple: rgba(114, 16, 255, 0.08);
   --dark1: #181a20;
   --dark2: rgba(0, 0, 0, 0.25);
@@ -38,6 +40,7 @@ p {
   --purple: #9d28ac;
   --deepPurple: #673ab3;
   --backPurple: #f4ecff;
+  --backPurple2: #f1e7ff;
   --transparentPurple: rgba(114, 16, 255, 0.08);
   --dark1: #181a20;
   --dark2: rgba(0, 0, 0, 0.25);
@@ -54,7 +57,7 @@ p {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 
 /* Track */
@@ -64,14 +67,14 @@ p {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--lightGrey);
+  background: var(--grey300);
   border-radius: 8px;
   transition: all 200ms ease;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--grey);
+  background: var(--grey400);
 }
 
 .flex_center {

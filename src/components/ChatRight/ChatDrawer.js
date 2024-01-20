@@ -1,19 +1,22 @@
 import { IconButton, SwipeableDrawer } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CustomColors from "../../config/colors";
 import Sidebar from "../Sidebar/Sidebar";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Logo from "../Logo/Logo";
+import { ChatteContext } from "../../config/context";
 
-function ChatDrawer(props) {
+function ChatDrawer({ style }) {
+  const { screenWidth } = useContext(ChatteContext);
+  let drawerWidth = screenWidth > 350 ? "350px" : screenWidth;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
-      <div className="flex_center" style={{ border: "1px solid black" }}>
+      <div className="flex_center" style={{ ...style }}>
         <IconButton sx={{ margin: "0 10px" }} onClick={handleOpen}>
           <MenuIcon sx={{ color: CustomColors.dark1 }} />
         </IconButton>
@@ -24,7 +27,7 @@ function ChatDrawer(props) {
         onClose={handleClose}
         anchor="left"
         PaperProps={{
-          sx: { width: "300px" },
+          sx: { width: drawerWidth },
         }}
       >
         <div
@@ -40,7 +43,7 @@ function ChatDrawer(props) {
             <CloseRoundedIcon />
           </IconButton>
         </div>
-        <Sidebar />
+        <Sidebar closeDrawer={handleClose} />
       </SwipeableDrawer>
     </>
   );

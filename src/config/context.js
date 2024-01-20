@@ -63,6 +63,11 @@ export const ChatteProvider = ({ children }) => {
     localStorage.setItem("uid", tempUser?.userId);
   };
 
+  const handleSignout = async () => {
+    setCurrentUser(null);
+    localStorage.removeItem("uid");
+  };
+
   const fetchUser = async () => {
     let userId = localStorage.getItem("uid");
     if (!userId) return false;
@@ -120,6 +125,7 @@ export const ChatteProvider = ({ children }) => {
         createDefaultBots,
         selectedBot,
         setSelectedBot,
+        handleSignout,
       }}
     >
       {children}

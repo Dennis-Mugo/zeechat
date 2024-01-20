@@ -9,7 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 import BotList from "./BotList";
 import { ChatteContext } from "../../config/context";
 
-function Sidebar({ style }) {
+function Sidebar({ style, closeDrawer }) {
   const { createDefaultBots, currentUser } = useContext(ChatteContext);
   return (
     <div className="sidebar_container" style={{ ...style }}>
@@ -33,7 +33,7 @@ function Sidebar({ style }) {
           Create new bot
         </Button>
       </div>
-      <BotList />
+      <BotList closeDrawer={closeDrawer} />
     </div>
   );
 }

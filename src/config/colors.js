@@ -3,6 +3,7 @@ const CustomColors = {
   purple: "#9D28AC",
   deepPurple: "#673AB3",
   backPurple: "#F4ECFF",
+  backPurple2: "#F1E7FF",
   transparentPurple: "rgba(114, 16, 255, 0.08)",
   dark1: "#181A20",
   dark2: "rgba(0, 0, 0, 0.25)",

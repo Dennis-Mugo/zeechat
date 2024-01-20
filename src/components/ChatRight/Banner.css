@@ -1,0 +1,20 @@
+.banner_img_wrapper {
+  height: 50vh;
+  /* border: 1px solid black; */
+}
+
+.banner_text_wrapper {
+  padding: 10px 10%;
+  /* border: 1px solid black; */
+}
+
+.banner_container {
+  /* border: 1px solid black; */
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.banner_footer {
+  /* border: 1px solid black; */
+  height: 10vh;
+}

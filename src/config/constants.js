@@ -37,6 +37,8 @@ export const defaultBots = [
   },
 ];
 
+export const mainWidthBreak = 850;
+
 export const getRandomAvatar = () => {
   return avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
 };

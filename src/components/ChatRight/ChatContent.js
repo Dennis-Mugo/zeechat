@@ -7,20 +7,23 @@ import { Tooltip } from "@mui/material";
 import TypeWriter from "../TypeWriter/TypeWriter";
 
 function ChatContent(props) {
-  const { selectedBot } = useContext(ChatteContext);
+  const { selectedBot, getSamplePrompt } = useContext(ChatteContext);
   const [status, setStatus] = useState("loading");
   const [samplePrompt, setSamplePrompt] = useState("");
   //loading, no-results, results
   useEffect(() => {
-    getSamplePrompt();
+    setSamplePrompt("");
+    if (!selectedBot) return;
+    fetchSamplePrompt();
     setStatus("no-results");
   }, [selectedBot]);
 
-  const getSamplePrompt = async () => {
-    setSamplePrompt("");
+  const fetchSamplePrompt = async () => {
+    let res = await getSamplePrompt(selectedBot);
+    setSamplePrompt(res);
     let result =
       "Hello! I'm planning a trip to Europe and could use some assistance. Can you help me create a personalized itinerary? I'd like to stay within a moderate budget. Where should I start?";
-    setSamplePrompt(result);
+    // setSamplePrompt(result);
     return result;
   };
 
@@ -30,7 +33,12 @@ function ChatContent(props) {
         {status === "no-results" ? (
           <div className="no_result_wrapper">
             <TypeWriter
-              style={{ fontFamily: "Nunito Sans", color: CustomColors.dark3 }}
+              style={{
+                fontFamily: "Nunito",
+                color: CustomColors.purple,
+                fontSize: "25px",
+                margin: "0 20px",
+              }}
               text={samplePrompt}
             />
           </div>

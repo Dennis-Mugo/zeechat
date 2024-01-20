@@ -11,8 +11,14 @@ import { createContext, useEffect, useState } from "react";
 import uuid4 from "uuid4";
 import { db } from "./firebase";
 import { defaultBots } from "./constants";
+import OpenAI from "openai";
+import { process } from "./env";
 
 export const ChatteContext = createContext();
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true,
+});
 
 export const ChatteProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -109,6 +115,39 @@ export const ChatteProvider = ({ children }) => {
     return "success";
   };
 
+  const getSamplePrompt = async (botObj) => {
+    let outline = botObj.description;
+    let prompt = `Generate a sample prompt to be given to a chatbot that does the following.
+    ###
+    outline : A travel planner
+    result: I need assistance planning a vacation. Where should I start?
+    
+    ###
+    outline : A Health and Fitness Chatbot
+    result: Create a workout routine for me.
+
+    ###
+    outline : A Job search bot
+    result: Give me tips for a successful job interview..
+    
+    ###
+    outline: ${outline}
+    result: 
+    `;
+
+    let messages = [{ role: "user", content: prompt }];
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: messages,
+      presence_penalty: 0,
+      frequency_penalty: 0.3,
+    });
+
+    console.log(response);
+    return response.choices[0].message.content;
+  };
+
   return (
     <ChatteContext.Provider
       value={{
@@ -126,6 +165,7 @@ export const ChatteProvider = ({ children }) => {
         selectedBot,
         setSelectedBot,
         handleSignout,
+        getSamplePrompt,
       }}
     >
       {children}

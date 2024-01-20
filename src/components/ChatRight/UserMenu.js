@@ -72,7 +72,7 @@ function UserMenu(props) {
             <p style={{ fontFamily: "Nunito Sans" }}>Sign Out</p>
           </ListItemText>
         </MenuItem>
-        {selectedBot ? (
+        {selectedBot && (
           <MenuItem onClick={handleCloseChat}>
             <ListItemIcon>
               <CloseIcon fontSize="small" />
@@ -81,8 +81,6 @@ function UserMenu(props) {
               <p style={{ fontFamily: "Nunito Sans" }}>Close chat</p>
             </ListItemText>
           </MenuItem>
-        ) : (
-          <></>
         )}
         <p
           style={{

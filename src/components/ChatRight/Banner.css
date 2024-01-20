@@ -11,7 +11,13 @@
 .banner_container {
   /* border: 1px solid black; */
   height: 90vh;
+  overflow-y: hidden;
+}
+
+.banner_scroll {
+  height: calc(90vh - 70px);
   overflow-y: scroll;
+  /* border: 1px solid black; */
 }
 
 .banner_footer {

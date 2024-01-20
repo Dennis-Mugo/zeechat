@@ -6,13 +6,14 @@ function TypeWriter({ text, style }) {
   useEffect(() => {
     let count = 0;
     const interval = setInterval(() => {
-      count++;
-      if (count <= text.length) {
+      count += 5;
+      if (count - 5 <= text.length) {
         setRendered(text.slice(0, count) + "●");
       }
-    }, 40);
+    }, 80); //previously 40ms
+
     return () => clearInterval(interval);
-  }, []);
+  }, [text]);
   return <h2 style={{ ...style }}>{rendered}</h2>;
 }
 

@@ -13,7 +13,7 @@ function BotList({ closeDrawer }) {
   const [botList, setBotList] = useState([]);
   const [filteredBotList, setFilteredBotList] = useState([]);
   const [listState, setListState] = useState("loading");
-  //loading, results, filtered
+  //loading, results, filtered, no-filtered
 
   useEffect(() => {
     setListState("loading");
@@ -33,11 +33,24 @@ function BotList({ closeDrawer }) {
   const handleSearch = (e) => {
     let value = e.target.value;
     setSearchKey(value);
+    value = value.trim();
+    value = value.toLowerCase();
+    let filtered = botList.filter((bot) =>
+      bot.name.toLowerCase().includes(value)
+    );
+    setFilteredBotList(filtered);
+    if (filtered.length) {
+      setListState("filtered");
+    } else {
+      setListState("no-filtered");
+    }
   };
 
   return (
     <>
-      {listState === "results" ? (
+      {listState === "results" ||
+      listState === "filtered" ||
+      listState === "no-filtered" ? (
         <div className="side_search_container flex_center">
           <div className="side_search_wrapper">
             <SearchIcon sx={{ marginRight: "10px" }} />
@@ -92,6 +105,19 @@ function BotList({ closeDrawer }) {
             />
           ))}
         </div>
+      ) : listState === "filtered" ? (
+        <div className="bot_results">
+          {filteredBotList.map((bot) => (
+            <BotListItem
+              key={bot.botId}
+              botObj={bot}
+              selected={selectedBot?.botId === bot.botId}
+              closeDrawer={closeDrawer}
+            />
+          ))}
+        </div>
+      ) : listState === "no-filtered" ? (
+        <p className="no_bots">No results found</p>
       ) : (
         <></>
       )}

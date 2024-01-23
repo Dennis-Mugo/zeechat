@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Banner.css";
 import ChatHeader from "./ChatHeader";
 import bannerImg from "../../assets/banner.png";
 import TypeWriter from "../TypeWriter/TypeWriter";
 import CustomColors from "../../config/colors";
 import Logo from "../Logo/Logo";
+import { ChatteContext } from "../../config/context";
 
 function Banner(props) {
+  const { screenWidth } = useContext(ChatteContext);
   const bannerText =
     "I am ZeeChat. I give you the flexibility to create your own custom AI bots. You can create as many specialized bots as you would like.";
   return (
@@ -14,7 +16,12 @@ function Banner(props) {
       <ChatHeader parentStatus="banner" />
       <div className="banner_scroll">
         <div className="flex_center banner_img_wrapper">
-          <img src={bannerImg} style={{ height: "50vh" }} />
+          <img
+            src={bannerImg}
+            style={{
+              width: screenWidth > 350 ? "310px" : `${screenWidth * 0.9}px`,
+            }}
+          />
         </div>
         <div className="banner_text_wrapper">
           <TypeWriter

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function TypeWriter({ text, style }) {
+function TypeWriter({ text, style, scrollToBottom }) {
   const [rendered, setRendered] = useState("");
 
   useEffect(() => {
@@ -9,6 +9,9 @@ function TypeWriter({ text, style }) {
       count += 5;
       if (count - 5 <= text.length) {
         setRendered(text.slice(0, count) + "●");
+        if (scrollToBottom) {
+          scrollToBottom();
+        }
       }
     }, 80); //previously 40ms
 

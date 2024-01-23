@@ -11,13 +11,14 @@ function Chat(props) {
     const navigate = useNavigate();
     const { setCurrentUser, screenWidth } = useContext(ChatteContext);
 
+    const highWidthBreak = 1100;
     
 
     return (
         <div className='chat_container flex_center'>
             <div className='chat_shadow'>
-                {screenWidth > mainWidthBreak ? <Sidebar style={{flex: "30"}} /> : <></>}
-                <ChatRight style={{flex: "70"}} />
+                {screenWidth > mainWidthBreak ? <Sidebar style={{flex: screenWidth < highWidthBreak ? "40" :  "30"}} /> : <></>}
+                <ChatRight style={{flex: screenWidth < highWidthBreak ? "60" : "70"}} />
             </div>
         </div>
     );

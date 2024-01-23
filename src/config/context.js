@@ -148,6 +148,45 @@ export const ChatteProvider = ({ children }) => {
     return response.choices[0].message.content;
   };
 
+  const addToChats = async (chatId, chatObj) => {
+    let chatRef = doc(
+      db,
+      `zee_users/${currentUser?.userId}/bots/${selectedBot.botId}/chats/${chatId}`
+    );
+    await setDoc(chatRef, chatObj);
+  };
+
+  const sendChat = async (chatsArr, content) => {
+    let userChatId = uuid4();
+    let chatObj = {
+      dateCreated: Date.now().toString(),
+      role: "user",
+      content: content,
+    };
+    await addToChats(userChatId, chatObj);
+    let conversationArr = [selectedBot, ...chatsArr, chatObj];
+    conversationArr = conversationArr.map((item) => ({
+      content: item.content,
+      role: item.role,
+    }));
+    console.log(conversationArr);
+    let response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: conversationArr,
+      presence_penalty: 0,
+      frequency_penalty: 0.3,
+    });
+    response = response.choices[0].message.content;
+    console.log(response);
+    let responseId = uuid4();
+    let responseObj = {
+      dateCreated: Date.now().toString(),
+      content: response,
+      role: "assistant",
+    };
+    await addToChats(responseId, responseObj);
+  };
+
   return (
     <ChatteContext.Provider
       value={{
@@ -166,6 +205,7 @@ export const ChatteProvider = ({ children }) => {
         setSelectedBot,
         handleSignout,
         getSamplePrompt,
+        sendChat,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import { Avatar, CircularProgress, Tooltip } from "@mui/material";
 import TypeWriter from "../TypeWriter/TypeWriter";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { Time } from "../../config/constants";
 
 function ChatContent(props) {
   const { selectedBot, getSamplePrompt, currentUser } =
@@ -173,7 +174,9 @@ const ChatItem = ({ chatObj, typeWrite, scrollToBottom }) => {
                   <h2 style={chatContentStyle}>{chatObj?.content}</h2>
                 )}
               </div>
-              <p className="chat_time">2:50 pm</p>
+              <p className="chat_time">
+                {Time.bubbleRelativeDate(chatObj?.dateCreated)}
+              </p>
             </div>
           </div>
         </div>
@@ -184,7 +187,9 @@ const ChatItem = ({ chatObj, typeWrite, scrollToBottom }) => {
               <div className="chat_item_shadow_right">
                 <h2 style={chatContentStyle}>{chatObj?.content}</h2>
               </div>
-              <p className="chat_time_right">2:50 pm</p>
+              <p className="chat_time_right">
+                {Time.bubbleRelativeDate(chatObj?.dateCreated)}
+              </p>
             </div>
             <div className="chat_avatar">
               <Avatar sx={{ backgroundColor: CustomColors.purple }}>
@@ -214,7 +219,6 @@ const ChatFooter = ({
 
   const handleSend = async () => {
     if (sendLoading) return;
-    console.log(userPrompt);
     let prompt = userPrompt.trim();
     if (!prompt.length) return;
     setUserPrompt("");

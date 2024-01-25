@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./BotList.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { ChatteContext } from "../../config/context";
 import { db } from "../../config/firebase";
 import { Avatar, Skeleton } from "@mui/material";
 import CustomColors from "../../config/colors";
 
 function BotList({ closeDrawer }) {
-  const { currentUser, selectedBot } = useContext(ChatteContext);
+  const { currentUser, selectedBot, setSelectedBot } =
+    useContext(ChatteContext);
   const [searchKey, setSearchKey] = useState("");
   const [botList, setBotList] = useState([]);
   const [filteredBotList, setFilteredBotList] = useState([]);
@@ -18,17 +19,25 @@ function BotList({ closeDrawer }) {
   useEffect(() => {
     setListState("loading");
     let botRef = collection(db, `zee_users/${currentUser?.userId}/bots`);
-    let unsub = onSnapshot(botRef, (snapshot) => {
+    let botQuery = query(botRef, orderBy("dateCreated", "desc"));
+    let unsub = onSnapshot(botQuery, (snapshot) => {
       let lst = [];
       snapshot.forEach((bot) => {
         lst.push({ ...bot.data(), botId: bot.id });
       });
       console.log(lst);
+      updateSelectedBot(lst);
       setBotList(lst);
       setListState("results");
     });
     return unsub;
   }, []);
+
+  const updateSelectedBot = (bots) => {
+    if (!selectedBot) return;
+    let updated = bots.find((bot) => bot.botId === selectedBot.botId);
+    setSelectedBot(updated);
+  };
 
   const handleSearch = (e) => {
     let value = e.target.value;

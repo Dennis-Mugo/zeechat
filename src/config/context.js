@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
@@ -99,7 +100,7 @@ export const ChatteProvider = ({ children }) => {
     }
     Promise.all(promises).then(
       (values) => {
-        console.log(values);
+        // console.log(values);
       },
       (e) => {
         console.log(e);
@@ -107,11 +108,18 @@ export const ChatteProvider = ({ children }) => {
     );
   };
 
-  const createBot = async (botObj, user) => {
+  const createBot = async (botObj, user = currentUser) => {
     if (!user) return;
     let botId = uuid4();
     let botRef = doc(db, `zee_users/${user.userId}/bots/${botId}`);
     await setDoc(botRef, botObj);
+    return "success";
+  };
+
+  const updateBot = async (botObj, botId, user = currentUser) => {
+    if (!user || !botId) return;
+    let botRef = doc(db, `zee_users/${user.userId}/bots/${botId}`);
+    await updateDoc(botRef, botObj);
     return "success";
   };
 
@@ -144,7 +152,7 @@ export const ChatteProvider = ({ children }) => {
       frequency_penalty: 0.3,
     });
 
-    console.log(response);
+    // console.log(response);
     return response.choices[0].message.content;
   };
 
@@ -164,12 +172,13 @@ export const ChatteProvider = ({ children }) => {
       content: content,
     };
     await addToChats(userChatId, chatObj);
+    console.log(selectedBot);
     let conversationArr = [selectedBot, ...chatsArr, chatObj];
     conversationArr = conversationArr.map((item) => ({
       content: item.content,
       role: item.role,
     }));
-    console.log(conversationArr);
+    // console.log(conversationArr);
     let response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: conversationArr,
@@ -177,7 +186,7 @@ export const ChatteProvider = ({ children }) => {
       frequency_penalty: 0.3,
     });
     response = response.choices[0].message.content;
-    console.log(response);
+    // console.log(response);
     let responseId = uuid4();
     let responseObj = {
       dateCreated: Date.now().toString(),
@@ -206,6 +215,7 @@ export const ChatteProvider = ({ children }) => {
         handleSignout,
         getSamplePrompt,
         sendChat,
+        updateBot,
       }}
     >
       {children}

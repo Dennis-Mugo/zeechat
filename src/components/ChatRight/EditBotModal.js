@@ -162,7 +162,7 @@ function EditBotModal({ closeDrawer }) {
   const handleSave = async () => {
     if (handleNameBlur() || handleDescBlur() || handleInstBlur()) return;
     setSaveLoading(true);
-    console.log(selectedBot?.botId);
+    // console.log(selectedBot?.botId);
     await updateBot(
       {
         name,

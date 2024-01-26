@@ -41,7 +41,7 @@ function EmailVerify(props) {
       });
       res = await res.json();
       setCode(res?.randomCode);
-      console.log(res);
+      // console.log(res);
     } catch (e) {
       console.log(e);
     }

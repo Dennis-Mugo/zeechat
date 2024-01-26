@@ -25,7 +25,7 @@ function BotList({ closeDrawer }) {
       snapshot.forEach((bot) => {
         lst.push({ ...bot.data(), botId: bot.id });
       });
-      console.log(lst);
+      // console.log(lst);
       updateSelectedBot(lst);
       setBotList(lst);
       setListState("results");

@@ -172,7 +172,6 @@ export const ChatteProvider = ({ children }) => {
       content: content,
     };
     await addToChats(userChatId, chatObj);
-    console.log(selectedBot);
     let conversationArr = [selectedBot, ...chatsArr, chatObj];
     conversationArr = conversationArr.map((item) => ({
       content: item.content,
